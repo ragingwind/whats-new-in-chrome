@@ -1,0 +1,17 @@
+{
+  "name": "test-with-chrome-headless",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "moonandyou/test-with-chrome-headless",
+  "scripts": {
+    "kill": "kill -9 `ps -ef | grep SimpleHTTPServer | grep 8080 |awk '{print $2}'`",
+    "serve": "python -m SimpleHTTPServer 8080 & chrome-headless http://127.0.0.1:8080",
+    "start": "yarn kill && yarn serve",
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "chrome-headless-launcher": "^0.1.5",
+    "chrome-remote-interface": "^0.22.0"
+  }
+}
