@@ -5,9 +5,7 @@ function onPageLoad(Runtime) {
   const js = `document.querySelector('#greetingButton').onclick();
   document.querySelector('#greeting').textContent`;
 
-
   return Runtime.evaluate({expression: js}).then(result => {
-    console.log(result)
     return result &&
       result.result.subtype !== 'error' &&
       result.result.value.indexOf('Hello World') >= 0;
