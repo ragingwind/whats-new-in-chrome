@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Payment Request on Desktop</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div><button id="buy">Buy</button></div>
+	<div><pre id="result"></pre></div>
+	<script>
+		const paymentMethod = [{
+			supportedMethods: ['basic-card'],
+			data: {
+				supportedNetworks: [
+					'amex', 'mastercard', 'unionpay', 'visa', 'mir'
+				],
+				supportedTypes: ['debit', 'credit', 'prepaid']
+			}
+		}]
+
+		// payment details with price
+		const paymentDetails = {
+			total: {
+				label: 'Total amount',
+				amount: {
+					currency: 'USD',
+					value: '55.00'
+				}
+			},
+			displayItems: [{
+				label: 'Original amount',
+				amount: {
+					currency: 'USD',
+					value: '65.00'
+				}
+			}, {
+				label: 'Discount',
+				amount: {
+					currency: 'USD',
+					value: '-10.00'
+				}
+			}]
+		}
+
+		// check PaymentRequest is supported
+		if (!window.PaymentRequest) {
+			console.error('PaymentRequest is supported yet')
+		}
+
+		// 1. create request of PaymentRequest
+		paymentRequest = new PaymentRequest(paymentMethod, paymentDetails)
+
+		// 2. bind event for click
+		document.getElementById('buy').addEventListener('click', () => {
+			// 3. show payment dialog
+			paymentRequest.show().then(instrument => {
+				// 4. manage transaction for payment on the server
+				// 5. forcely complete the transaction by complete()
+				return instrument.complete('success')
+					.then(() => {
+						const {methodName, details} = instrument
+
+						// 6. hidden details
+						details.cardNumber = 'XXXX-XXXX-XXXX-' + details.cardNumber.substr(12);
+						details.cardSecurityCode = '***';
+
+						// 7. display results
+						document.getElementById('result').innerHTML = JSON.stringify({
+							methodName,
+							details
+						}, '', 2)
+					})
+			}).catch(err => {
+				console.log(err)
+			})
+		})
+	</script>
+</body>
+</html>

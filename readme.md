@@ -1,24 +1,15 @@
-# test-with-chrome-headless
+# New Things in Chrome
 
-> Demostrate how to test with Chrome in headless mode and Chrome Remote Interface 
+> Commentaries and demonstration about new things in the latest version of Chrome. It's simple and adjusted to understand easily what happend in the latest version of Chrome
 
-# Getting Started
+## Crhome 60
 
-To test, you should have to run below scripts on different shells. one is for HTTP server and Chrome running in headless mode, another is for doing the test.
+- [Payment Request on Desktop]('./chrome-060/payment-request-on-desktop/)
+- [Credential Management API]('./chrome-060/credential-management-api/)
 
-1. Open a new terminal and run this script at the project home. and then check out those of services are running well.
+## Chrome 59
 
-```sh
-yarn start
-```
-
-2. Open an another terminal and run a test
-
-```sh
-yarn test
-```
-
-## 
+- [Test with Headless Chrome and Ava]('./chrome-059/test-with-headless-chrome-and-ava/)
 
 # License
 
