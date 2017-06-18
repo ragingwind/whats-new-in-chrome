@@ -1,24 +1,22 @@
-# test-with-chrome-headless
+# payment-request-on-desktop
 
-> Demostrate how to test with Chrome in headless mode and Chrome Remote Interface 
+> Demostrate to show how to work Payment Request on desktop, over Chrome 60
 
 # Getting Started
 
-To test, you should have to run below scripts on different shells. one is for HTTP server and Chrome running in headless mode, another is for doing the test.
-
-1. Open a new terminal and run this script at the project home. and then check out those of services are running well.
-
 ```sh
-yarn start
+npm install
+npm start
 ```
 
-2. Open an another terminal and run a test
+# References
 
-```sh
-yarn test
-```
-
-## 
+- [Latest Updates to the Credential Management API  |  Web  |  Google Developers](https://goo.gl/AuMLtr)
+- [Integrating Google Sign-In into your web app  |  Google Sign-In for Websites  |  Google Developers](https://goo.gl/ueCQIr)
+- [GoogleChrome/credential-management-sample: Credential Management Sample](https://goo.gl/c4Pn22)
+  - [Credential Management API Demo](https://goo.gl/iqYLRm)
+- [Streamlining the Sign-in Flow Using Credential Management API  |  Web  |  Google Developers](https://goo.gl/w7cF8a)
+- [Enabling auto sign-in with Credential Management API](https://goo.gl/9wRRmY)
 
 # License
 

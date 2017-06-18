@@ -1,114 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-		<div><button id="buyButton">Buy</button></div>
-		<div><pre id="result"></pre></div>
-    <script>
-/**
- * Builds PaymentRequest for credit cards, but does not show any UI yet.
- *
- * @return {PaymentRequest} The PaymentRequest oject.
- */
-function initPaymentRequest() {
-  let networks = ['amex', 'diners', 'discover', 'jcb', 'mastercard', 'unionpay',
-      'visa', 'mir'];
-  let types = ['debit', 'credit', 'prepaid'];
-  let supportedInstruments = [{
-    supportedMethods: networks,
-  }, {
-    supportedMethods: ['basic-card'],
-    data: {supportedNetworks: networks, supportedTypes: types},
-  }];
+	<head>
+		<title>Credential Management API Demo</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+	</head>
+	<style>
+		body {
+			font-family: 'roboto';
+		}
 
-  let details = {
-    total: {label: 'Donation', amount: {currency: 'USD', value: '55.00'}},
-    displayItems: [
-      {
-        label: 'Original donation amount',
-        amount: {currency: 'USD', value: '65.00'},
-      },
-      {
-        label: 'Friends and family discount',
-        amount: {currency: 'USD', value: '-10.00'},
-      },
-    ],
-  };
+		.wrapper {
+			padding: 0.7em;
+			text-align: center;
+		}
 
-  return new PaymentRequest(supportedInstruments, details);
-}
+		#gbutton {
+			cursor: pointer;
+		}
 
-/**
- * Invokes PaymentRequest for credit cards.
- *
- * @param {PaymentRequest} request The PaymentRequest object.
- */
-function onBuyClicked(request) {
-  request.show().then(function(instrumentResponse) {
-    sendPaymentToServer(instrumentResponse);
-  })
-  .catch(function(err) {
-    ChromeSamples.setStatus(err);
-  });
-}
+		#progress {
+			padding: 0.5em;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+	</style>
+	<body>
+		<div class="wrapper">
+			<img id="gbutton" src="google_signin.png" onclick="buttonAction()"/>
+		</div>
+		<p id="progress"></p>
+	<script>
+		let buttonAction = signIn
+		const gbutton = document.querySelector('#gbutton')
 
-/**
- * Simulates processing the payment data on the server.
- *
- * @param {PaymentResponse} instrumentResponse The payment information to
- * process.
- */
-function sendPaymentToServer(instrumentResponse) {
-  // There's no server-side component of these samples. No transactions are
-  // processed and no money exchanged hands. Instantaneous transactions are not
-  // realistic. Add a 2 second delay to make it seem more real.
-  window.setTimeout(function() {
-    instrumentResponse.complete('success')
-        .then(function() {
-          document.getElementById('result').innerHTML =
-              instrumentToJsonString(instrumentResponse);
-        })
-        .catch(function(err) {
-          ChromeSamples.setStatus(err);
-        });
-  }, 2000);
-}
+		const now = () => {
+			const d = new Date()
+			return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} `
+				+ `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}:${d.getMilliseconds()}`
+		}
 
-/**
- * Converts the payment instrument into a JSON string.
- *
- * @private
- * @param {PaymentResponse} instrument The instrument to convert.
- * @return {string} The JSON string representation of the instrument.
- */
-function instrumentToJsonString(instrument) {
-  let details = instrument.details;
-  details.cardNumber = 'XXXX-XXXX-XXXX-' + details.cardNumber.substr(12);
-  details.cardSecurityCode = '***';
+		const trace = (() => {
+			const progress = document.querySelector('#progress')
+			return function() {
+				progress.textContent += `[${now()}] ${[...arguments].join(' ')}\r\n`
+			}
+		})()
 
-  return JSON.stringify({
-    methodName: instrument.methodName,
-    details: details,
-  }, undefined, 2);
-}
+		function updateSignButton(signed = false) {
+			signed = signed || isSigned()
+			gbutton.src = signed ? 'google_signout.png' : 'google_signin.png'
+			buttonAction = signed ? signOut : signIn
+		}
 
-const payButton = document.getElementById('buyButton');
-payButton.setAttribute('style', 'display: none;');
-console.log(window.PaymentRequest)
-if (window.PaymentRequest) {
-  let request = initPaymentRequest();
-  payButton.setAttribute('style', 'display: inline;');
-  payButton.addEventListener('click', function() {
-    onBuyClicked(request);
-    request = initPaymentRequest();
-  });
-} else {
-  ChromeSamples.setStatus('This browser does not support web payments');
-}
-    </script>
-  </body>
+		function currentUserInfo() {
+			const auth2 = gapi.auth2.getAuthInstance()
+			const user = auth2.currentUser.get()
+
+			if (!user || user.El === null) {
+				return {
+					toString: () => '',
+					profile: {}
+				}
+			}
+
+			const id = user.getBasicProfile().getEmail()
+			const name = user.getBasicProfile().getName()
+
+			return {
+				toString: () => {
+					return `current user:\r\n` +
+						`\t id: ${id}\r\n` +
+						`\t name: ${name}`
+				},
+				profile: {
+					id,
+					name
+				}
+			}
+		}
+
+		function isSigned() {
+			const auth2 = gapi.auth2.getAuthInstance()
+			return auth2.isSignedIn.get()
+		}
+
+		function signOut() {
+			trace('starting sign out')
+
+			const auth2 = gapi.auth2.getAuthInstance()
+
+			navigator.credentials.preventSilentAccess()
+			auth2.signOut().then(() => {
+				trace('successful signed out, ', currentUserInfo().toString())
+				updateSignButton()
+			})
+		}
+
+		function signIn() {
+			trace('starting sign in')
+
+			const auth2 = gapi.auth2.getAuthInstance();
+
+			auth2.signIn({login_hint: ''}).then(() => {
+				updateSignButton()
+
+				const userinfo = currentUserInfo()
+
+				trace('successful signed in: ', userinfo.toString())
+				const {id, name, provider, type} = cred = new FederatedCredential({
+					id: userinfo.profile.id,
+					name: userinfo.profile.name,
+					provider: 'https://accounts.google.com'
+				})
+
+				trace('store credential, ', JSON.stringify({id, name, provider, type}))
+				navigator.credentials.store(cred)
+			})
+		}
+
+		function getCredentials(silent = false) {
+			return navigator.credentials.get({
+				password: true,
+				federated: {
+					providers: ['https://accounts.google.com']
+				},
+				mediation: silent ? 'silent' : 'optional'
+			}).then(cred => {
+				if (cred) {
+					const {id, name, type} = cred
+					trace('found credential, ', JSON.stringify({id, name, type}))
+				} else {
+					trace('found no credential')
+				}
+
+				return cred
+			})
+		}
+
+		window.onLoadCallback = () => {
+			const client_id = ''
+
+			trace('load auth2 module from gcp api')
+			gapi.load('auth2', () => {
+				trace('initialize auth2 with client-id ' + client_id.split('.')[0])
+				gapi.auth2.init({client_id}).then(async auth => {
+					trace('check credentials to autosign in')
+
+					const cred = await getCredentials()
+					const signed = cred !== undefined || isSigned()
+
+					trace(`check out of user status, user signed: ${signed
+							? 'in ' + currentUserInfo().toString()
+							: 'out'}`)
+
+					updateSignButton(signed)
+				})
+			})
+		}
+	</script>
+	</body>
 </html>
