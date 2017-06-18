@@ -5,7 +5,8 @@
   "repository": "codebusking/test-with-chrome-headless",
   "scripts": {
     "kill": "kill -9 `ps -ef | grep SimpleHTTPServer | grep 8080 |awk '{print $2}'`",
-    "start": "python -m SimpleHTTPServer 8080"
+    "start": "python -m SimpleHTTPServer 8080",
+    "postinstall": "touch client-secrets.js"
   },
   "devDependencies": {
     "xo": "^0.18.2"
