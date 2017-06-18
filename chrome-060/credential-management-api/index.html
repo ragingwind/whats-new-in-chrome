@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+		<script src="client-secret.js"></script>
 	</head>
 	<style>
 		body {
@@ -140,7 +141,8 @@
 		}
 
 		window.onLoadCallback = () => {
-			const client_id = ''
+			// clientSecret must be pre-defined at client-secret.js
+			const client_id = clientSecret.client_id
 
 			trace('load auth2 module from gcp api')
 			gapi.load('auth2', () => {
