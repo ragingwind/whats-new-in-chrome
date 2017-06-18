@@ -4,9 +4,9 @@
 
 # Getting Started
 
-First of all, You must have to set up credential information on Googl Cloud Platform that allow you can get client_id. This demo requires `client_id` you can get in Credentials in Dash board. Take a look about [codelab guide](https://codelabs.developers.google.com/codelabs/credential-management-api/#1)
+First of all, you must have to set up credential information on Googl Cloud Platform that allow you can get client_id. This demo requires `client_id` you can get in Credentials in Dash board. For more information, please take a look about [codelab guide](https://codelabs.developers.google.com/codelabs/credential-management-api/#1)
 
-After get a `client_id` from dashboard or `client_secrets.json`, you need to crete a file named `client-secrets.js` at root of this project and set `client_id` value to the variable in global
+After get a `client_id` from dashboard or `client_secrets.json`, you need to create a file named `client-secrets.js` at root of this project and set `client_id` value to the variable in global
 
 ```
 window.clientSecret = {
