@@ -4,8 +4,8 @@
 
 ## Crhome 60
 
-- [Payment Request on Desktop]('./chrome-060/payment-request-on-desktop/)
-- [Credential Management API]('./chrome-060/credential-management-api/)
+- [Payment Request on Desktop]('chrome-060/payment-request-on-desktop/)
+- [Credential Management API]('chrome-060/credential-management-api/)
 
 ## Chrome 59
 
