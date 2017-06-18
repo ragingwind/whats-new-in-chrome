@@ -1,6 +1,6 @@
-# payment-request-on-desktop
+# credential-management-api
 
-> Demostrate to show how to work Payment Request on desktop, over Chrome 60
+> Demostrate to show what happen with Chrome Credential Management API
 
 # Getting Started
 
