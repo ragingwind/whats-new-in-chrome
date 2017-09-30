@@ -1,4 +1,4 @@
-# New Things in Chrome
+# What's New in Chrome with Commentaries
 
 > Commentaries and demonstration about new things in the latest version of Chrome. It's simple and adjusted to understand easily what happend in the latest version of Chrome
 
