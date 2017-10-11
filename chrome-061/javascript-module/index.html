@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script type="module" src="./module.js"></script>    
+    <script async type="module">
+      // import { setHeader } from 'http://localhost:5000/dom.js'
+      import { setHeader } from './dom.js'
+      setHeader('Hello from module')
+    </script>
+  </head>
+  <body>
+    <h1>Hello</h1>
+  </body>
+  <script>
+    document.onreadystatechange = () => {
+      console.log(`index: readyState is ${document.readyState}`)
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('index: DOMContentLoaded')
+      console.log(func())
+    })
+  </script>
+</html>
