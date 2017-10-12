@@ -1,9 +1,8 @@
 <html>
   <head>
-    <script type="module" src="./module.js"></script>    
+    <script type="module" src="./external.js"></script>
     <script async type="module">
-      // import { setHeader } from 'http://localhost:5000/dom.js'
-      import { setHeader } from './dom.js'
+      import { setHeader } from './inline.js'
       setHeader('Hello from module')
     </script>
   </head>
