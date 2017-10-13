@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>WebShare Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <input type="button" id="share" value="Share">
+    <script>
+      async function share () {
+        console.log(navigator.share)
+        try {
+          await navigator.share({title: 'Example Page', url: 'https://example.com'})
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
+      window.addEventListener('load', () => {
+        document.querySelector('#share').addEventListener('click', share)
+      })
+    </script>
+  </body>
+</html>

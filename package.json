@@ -1,0 +1,13 @@
+{
+  "name": "whats-new-in-chrome",
+  "version": "0.0.0",
+  "repository": "codebusking/whats-new-in-chrome",
+  "scripts": {
+    "start": "serve ./",
+    "deploy": "now alias $(now --name=whats-new-in-chrome --public | grep -o 'https:\/\/.*.now.sh') whats-new-in-chrome.now.sh",
+    "rm": "now rm whats-new-in-chrome || true"
+  },
+  "dependencies": {
+    "serve": "^6.2.0"
+  }
+}

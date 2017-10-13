@@ -6,7 +6,7 @@
   "scripts": {
     "kill": "kill -9 `ps -ef | grep SimpleHTTPServer | grep 8080 |awk '{print $2}'`",
     "serve": "python -m SimpleHTTPServer 8080 & chrome-headless http://127.0.0.1:8080",
-    "start": "yarn kill && yarn serve",
+    "start": "npm run kill && npm run serve",
     "test": "ava"
   },
   "devDependencies": {
