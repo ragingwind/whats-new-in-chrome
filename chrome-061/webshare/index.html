@@ -1,23 +1,28 @@
-<html>
-  <head>
-    <title>WebShare Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <body>
-    <input type="button" id="share" value="Share">
-    <script>
-      async function share () {
-        console.log(navigator.share)
-        try {
-          await navigator.share({title: 'Example Page', url: 'https://example.com'})
-        } catch (err) {
-          console.log(err)
-        }
-      }
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WebShare Demo</title>
+</head>
+<body>
+	<button type="button" id="share">Share Your URL</button>
+	<script>
+		async function share () {
+			try {
+				if (!navigator.share) {
+					alert('navigator.share does not support, check a version of browser and it is running on https')
+					return
+				}
 
-      window.addEventListener('load', () => {
-        document.querySelector('#share').addEventListener('click', share)
-      })
-    </script>
-  </body>
+				await navigator.share({title: 'Google', url: 'https://google.com'})
+			} catch (err) {
+				console.log(err)
+			}
+		}
+
+		window.addEventListener('load', () => {
+			document.querySelector('#share').addEventListener('click', share)
+		})
+	</script>
+</body>
 </html>
