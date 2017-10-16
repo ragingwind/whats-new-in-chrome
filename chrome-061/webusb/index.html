@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web USB Demo</title>
+</head>
+<body>
+	<button id="connect">Connect to USB devices</button>
+	<script>
+		document.querySelector('#connect').addEventListener('click', () => {
+			navigator.usb.requestDevice({filters: []})
+			.then(device => {
+				const {
+					manufacturerName,
+					productName,
+					vendorId
+				} = device
+
+				console.log(manufacturerName, productName, vendorId)
+			})
+			.catch(error => {
+				console.log(error)
+			})
+		})
+	</script>
+</body>
+</html>
