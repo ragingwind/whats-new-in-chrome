@@ -4,8 +4,8 @@
   "repository": "codebusking/whats-new-in-chrome",
   "scripts": {
     "start": "serve ./",
-    "deploy": "now alias $(now --name=whats-new-in-chrome --public | grep -o 'https:\/\/.*.now.sh') whats-new-in-chrome.now.sh",
-    "rm": "now rm whats-new-in-chrome || true"
+    "deploy": "now alias $(now --name=${npm_package_name} --public | grep -o 'https:\/\/.*.now.sh') ${npm_package_name}.now.sh",
+    "rm": "now rm ${npm_package_name} || true"
   },
   "dependencies": {
     "serve": "^6.2.0"
