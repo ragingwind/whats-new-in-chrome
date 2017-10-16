@@ -2,14 +2,13 @@
 
 > Commentaries and demonstration about new things in the latest version of Chrome. It's simple and adjusted to understand easily what happend in the latest version of Chrome
 
-## Crhome 60
+## Getting Started
 
-- [Payment Request on Desktop](chrome-060/payment-request-on-desktop/)
-- [Credential Management API](chrome-060/credential-management-api/)
+Run `npm start` after installing simple file sever `serve` on the root of the project by `npm install` or using your own simple server like `python -m SimpleHTTPServer 8000`
 
-## Chrome 59
+## Demo
 
-- [Test with Headless Chrome and Ava]('chrome-059/test-with-headless-chrome-and-ava/)
+All of demo in this repository is [live](https://whats-new-in-chrome.now.sh/). You can test it now. Warn you, some of examples must be run in the particular conditions.
 
 # License
 
