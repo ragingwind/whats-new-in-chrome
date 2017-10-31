@@ -4,7 +4,7 @@
   "repository": "codebusking/whats-new-in-chrome",
   "scripts": {
     "start": "serve ./",
-    "deploy": "now alias $(now --name=${npm_package_name} --public | grep -o 'https:\/\/.*.now.sh') ${npm_package_name}.now.sh",
+    "deploy": "now alias $(now --name=${npm_package_name} --public | grep -o 'https://.*.now.sh') ${npm_package_name}.now.sh",
     "rm": "now rm ${npm_package_name} || true"
   },
   "dependencies": {
