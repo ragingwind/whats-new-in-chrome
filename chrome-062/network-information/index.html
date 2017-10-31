@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Network Information</title>
+</head>
+<body>
+  <div id="status" style="white-space: pre"></div>
+  <script>
+    const status = document.querySelector('#status')
+    navigator.connection.addEventListener('change', queryNetworkInformation)
+    
+    function queryNetworkInformation() {
+      status.textContent = `type: ${navigator.connection.type}
+downlink: ${navigator.connection.downlink}
+rtt: ${navigator.connection.rtt}
+downlinkMax: ${navigator.connection.downlinkMax}
+effectiveType: ${navigator.connection.effectiveType}`
+    }
+
+    queryNetworkInformation()
+  </script>
+</body>
+</html>
