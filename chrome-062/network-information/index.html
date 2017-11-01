@@ -10,7 +10,7 @@
   <script>
     const status = document.querySelector('#status')
     navigator.connection.addEventListener('change', queryNetworkInformation)
-    
+
     function queryNetworkInformation() {
       status.textContent = `type: ${navigator.connection.type}
 downlink: ${navigator.connection.downlink}
