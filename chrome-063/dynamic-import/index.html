@@ -12,7 +12,9 @@
 			import('./clicked.js').then(m => {
 				console.log('module has been imported', m)
 				m.alert()
-			})
+			}).catch(error => {
+				/* Error handling */
+  		})
 		})
 	</script>
 </body>
