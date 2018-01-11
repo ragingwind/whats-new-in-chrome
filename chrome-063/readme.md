@@ -8,7 +8,9 @@
 ## Async iterators and generators
 
 - [Async iterators and generators - JakeArchibald.com](https://goo.gl/rBM420)
+	- [JS Bin - Collaborative JavaScript Debugging](https://goo.gl/64eFg5)
 - [ES proposal: asynchronous iteration](https://goo.gl/zkKlFn)
+- [Iterators and generators - JavaScript | MDN](https://goo.gl/kUbU7)
 
 ## Device Memory API
 
